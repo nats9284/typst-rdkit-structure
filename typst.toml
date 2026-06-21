@@ -1,0 +1,12 @@
+[package]
+name = "rdkit-structure"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["nats9284 <@nats9284>"]
+license = "MIT"
+description = "Draw chemical structure with RDKit. SMILES, SMARTS, SDF and InCHI formats are supported"
+repository = "https://github.com/nats9284/typst-rdkit-structure.git"
+keywords = ["RDKit", "chemistry", "chemical", "reaction", "structure", "formula", "chemobabel", "smiles", "InCHI"]
+categories = ["chemistry", "visualization", "integration"]
+compiler = "0.15.0"
+exclude = ["rdkit_interface/src/*", "rdkit_interface/.*", "rdkit_interface/Makefile","rdkit_interface/*.prot", "examples/*", ".gitignore", "Makefile"]

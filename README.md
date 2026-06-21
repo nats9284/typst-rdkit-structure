@@ -44,6 +44,10 @@ You can draw reaction using the `render_reaction` function:
 
 
 ## Build
+### prerequisites
+[Emscripten](https://github.com/emscripten-core/emscripten)
+
+pkg-config
 
 This project was built with emscripten `3.1.46`.
 Before building, you just need to set PATH environmental variable.
