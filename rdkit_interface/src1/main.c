@@ -38,7 +38,7 @@ int32_t render_molecule(size_t arg1_len, size_t arg2_len) {
     molstring[arg1_len] = '\0';
     char svginfo[arg2_len+1];
     memcpy(svginfo, args+arg1_len+1, arg2_len);
-    svginfo[arg2_len+1] = '\0';
+    svginfo[arg2_len] = '\0';
     size_t pkl_size;
     char *pkl;
     pkl = get_mol(molstring, &pkl_size, "");
@@ -68,12 +68,11 @@ int32_t render_molecule(size_t arg1_len, size_t arg2_len) {
     
     free(pkl);
     free(svg);
-    free(args);
     return 0;
 }
 
 EMSCRIPTEN_KEEPALIVE
-int32_t render_reaction(size_t arg1_len) {
+int32_t render_reaction(size_t arg1_len, size_t arg2_len) {
     uint8_t *args = malloc(arg1_len);
     if (!args) {
         return 1;
@@ -84,7 +83,7 @@ int32_t render_reaction(size_t arg1_len) {
     rxnstring[arg1_len] = '\0';
     char svginfo[arg2_len+1];
     memcpy(svginfo, args+arg1_len+1, arg2_len);
-    svginfo[arg2_len+1] = '\0';
+    svginfo[arg2_len] = '\0';
     size_t pkl_size;
     char *pkl;
     pkl = get_rxn((char*)rxnstring, &pkl_size, "");
@@ -115,6 +114,5 @@ int32_t render_reaction(size_t arg1_len) {
 
     free(pkl);
     free(svg);
-    free(args);
     return 0;
 }
