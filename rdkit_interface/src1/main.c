@@ -37,7 +37,7 @@ int32_t render_molecule(size_t arg1_len, size_t arg2_len) {
     memcpy(molstring, args, arg1_len);
     molstring[arg1_len] = '\0';
     char svginfo[arg2_len+1];
-    memcpy(svginfo, args+arg1_len+1, arg2_len);
+    memcpy(svginfo, args+arg1_len, arg2_len);
     svginfo[arg2_len] = '\0';
     size_t pkl_size;
     char *pkl;
@@ -82,7 +82,7 @@ int32_t render_reaction(size_t arg1_len, size_t arg2_len) {
     memcpy(rxnstring, args, arg1_len);
     rxnstring[arg1_len] = '\0';
     char svginfo[arg2_len+1];
-    memcpy(svginfo, args+arg1_len+1, arg2_len);
+    memcpy(svginfo, args+arg1_len, arg2_len);
     svginfo[arg2_len] = '\0';
     size_t pkl_size;
     char *pkl;
