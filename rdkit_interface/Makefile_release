@@ -11,7 +11,7 @@ RDMINDIR=$(shell pwd)/rdkit/Code/MinimalLib
 BOOSTSRCDIR=$(shell pwd)/boost
 FTSRCDIR=$(shell pwd)/freetype
 ZLIBSRCDIR=$(shell pwd)/zlib
-CFLAGS = -O0 --no-entry -sFILESYSTEM=0 -sASSERTIONS=0 -sEXPORT_KEEPALIVE=1 -Wall -Wno-logical-op-parentheses -sWARN_ON_UNDEFINED_SYMBOLS=1 -sERROR_ON_UNDEFINED_SYMBOLS=0 -DDEBUG -DCOMPILE_ANSI_ONLY -sSTANDALONE_WASM 
+CFLAGS = -Oz -flto=thin --no-entry -sFILESYSTEM=0 -sASSERTIONS=0 -sEXPORT_KEEPALIVE=1 -Wall -Wno-logical-op-parentheses -sWARN_ON_UNDEFINED_SYMBOLS=1 -sERROR_ON_UNDEFINED_SYMBOLS=0 -DDEBUG -DCOMPILE_ANSI_ONLY -sSTANDALONE_WASM 
 
 INCLUDE_FLAGS = -I"src" -I"$(INSTALLDIR)/include" -L"$(INSTALLDIR)/lib" -lrdkitcffi -lRDKitDistGeomHelpers_static -lRDKitDistGeometry_static -lRDKitForceFieldHelpers_static -lRDKitForceField_static -lRDKitOptimizer_static -lRDKitTrajectory_static -lRDKitMolInterchange_static -lRDKitAbbreviations_static -lRDKitMolDraw2D_static -lRDKitDescriptors_static -lRDKitPartialCharges_static -lRDKitRGroupDecomposition_static -lRDKitFMCS_static -lRDKitga_static -lRDKitMolEnumerator_static -lRDKitTautomerQuery_static -lRDKitMolStandardize_static -lRDKitChemReactions_static -lRDKitFileParsers_static -lRDKitmaeparser_static -lRDKitFilterCatalog_static -lRDKitCatalogs_static -lRDKitChemTransforms_static -lRDKitFingerprints_static -lRDKitCIPLabeler_static -lRDKitSubgraphs_static -lRDKitRDInchiLib_static -lRDKitDepictor_static -lRDKitMolAlign_static -lRDKitAlignment_static -lRDKitMolTransforms_static -lRDKitEigenSolvers_static -lRDKitcoordgen_static -lRDKitSubstructMatch_static -lRDKitGenericGroups_static -lRDKitSmilesParse_static -lRDKitGraphMol_static -lRDKitRDGeometryLib_static -lRDKitDataStructs_static -lRDKitRDGeneral_static -lRDKitInchi_static -lRDKitRingDecomposerLib_static -lz
 
@@ -48,21 +48,21 @@ $(RDBASEDIR)/build/lib/librdkitcffi.a: | $(RDMINDIR) $(INSTALLDIR)/lib/libz.a $(
 	sed -i -e 's/fingerprintVarianceGroupScore(fingerprintVarianceScoreData)/fingerprintVarianceScoreData.fingerprintVarianceGroupScore()/' $(RDBASEDIR)/Code/GraphMol/RGroupDecomposition/RGroupGa.cpp; \
 	mkdir -p $(RDBASEDIR)/build; \
 	cd $(RDBASEDIR)/build; \
-	emcmake cmake -DCMAKE_BUILD_TYPE=Release -DRDK_BUILD_CPP_TESTS=OFF -DRDK_BUILD_PYTHON_WRAPPERS=OFF -DRDK_BUILD_COORDGEN_SUPPORT=ON -DRDK_BUILD_MAEPARSER_SUPPORT=ON -DRDK_OPTIMIZE_POPCNT=ON -DRDK_BUILD_INCHI_SUPPORT=ON -DRDK_BUILD_THREADSAFE_SSS=OFF -DRDK_TEST_MULTITHREADED=OFF -DRDK_BUILD_CFFI_LIB=ON -DRDK_USE_BOOST_SERIALIZATION=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DRDK_INSTALL_COMIC_FONTS=OFF -DRDK_BUILD_FREETYPE_SUPPORT=OFF -DRDK_BUILD_MINIMAL_LIB=OFF -DRDK_URF_LIBS=ON -DBoost_DIR=$(INSTALLDIR)/lib/cmake/Boost-1.87.0 -Dboost_headers_DIR=$(INSTALLDIR)/lib/cmake/boost_headers-1.87.0 -DRDK_BUILD_SLN_SUPPORT=OFF -DRDK_USE_BOOST_IOSTREAMS=OFF -Dboost_serialization_DIR=$(INSTALLDIR)/lib/cmake/boost_serialization-1.87.0 -DZLIB_INCLUDE_DIR=$(INSTALLDIR)/include -DZLIB_LIBRARY=$(INSTALLDIR)/lib/libz.a -DCMAKE_INSTALL_PREFIX=$(INSTALLDIR) .. ; \
+	emcmake cmake -DCMAKE_BUILD_TYPE=Release -DRDK_BUILD_CPP_TESTS=OFF -DRDK_BUILD_PYTHON_WRAPPERS=OFF -DRDK_BUILD_COORDGEN_SUPPORT=ON -DRDK_BUILD_MAEPARSER_SUPPORT=ON -DRDK_OPTIMIZE_POPCNT=ON -DRDK_BUILD_INCHI_SUPPORT=ON -DRDK_BUILD_THREADSAFE_SSS=OFF -DRDK_TEST_MULTITHREADED=OFF -DRDK_BUILD_CFFI_LIB=ON -DRDK_USE_BOOST_SERIALIZATION=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DRDK_INSTALL_COMIC_FONTS=OFF -DRDK_BUILD_FREETYPE_SUPPORT=OFF -DRDK_BUILD_MINIMAL_LIB=OFF -DRDK_URF_LIBS=ON -DBoost_DIR=$(INSTALLDIR)/lib/cmake/Boost-1.87.0 -Dboost_headers_DIR=$(INSTALLDIR)/lib/cmake/boost_headers-1.87.0 -DRDK_BUILD_SLN_SUPPORT=OFF -DRDK_USE_BOOST_IOSTREAMS=OFF -Dboost_serialization_DIR=$(INSTALLDIR)/lib/cmake/boost_serialization-1.87.0 -DZLIB_INCLUDE_DIR=$(INSTALLDIR)/include -DZLIB_LIBRARY=$(INSTALLDIR)/lib/libz.a -DCMAKE_INSTALL_PREFIX=$(INSTALLDIR) -DCMAKE_EXE_LINKER_FLAGS="-sASSERTIONS=0 -flto=thin" .. ; \
 	cp $(RDBASEDIR)/External/INCHI-API/src/INCHI_BASE/src/util.c $(RDBASEDIR)/External/INCHI-API/src/INCHI_BASE/src/util.c.bak && \
  sed 's/&& defined(__APPLE__)//' $(RDBASEDIR)/External/INCHI-API/src/INCHI_BASE/src/util.c.bak > /$(RDBASEDIR)/External/INCHI-API/src/INCHI_BASE/src/util.c; \
 	make VERBOSE=1 -j 2 rdkitcffi
 
 
 $(INSTALLDIR)/lib/libboost_system.a: $(BOOSTSRCDIR) $(INSTALLDIR) $(BOOSTSRCDIR)/bootstrap.sh
-#	mkdir -p $(BOOSTSRCDIR)/build && cd $(BOOSTSRCDIR); \
-#	./bootstrap.sh --prefix=$(INSTALLDIR) --with-libraries=system; \
+	mkdir -p $(BOOSTSRCDIR)/build && cd $(BOOSTSRCDIR); \
+	./bootstrap.sh --prefix=$(INSTALLDIR) --with-libraries=system; \
 	./b2 toolset=emscripten link=static host-os=linux target-os=linux address-model=32 --with-system --build-dir=./build --prefix=$(INSTALLDIR) install
 
 $(INSTALLDIR)/lib/libfreetyped.a: $(FTSRCDIR)| $(INSTALLDIR) $(FTSRCDIR)/Makefile
 	mkdir -p $(FTSRCDIR)/build \
 		&& cd $(FTSRCDIR)/build \
-		&& emcmake cmake -DCMAKE_BUILD_TYPE=Debug -DFT_DISABLE_ZLIB=TRUE -DFT_DISABLE_BZIP2=TRUE -DFT_DISABLE_PNG=TRUE -DFT_DISABLE_HARFBUZZ=TRUE -DFT_DISABLE_BROTLI=TRUE -DCMAKE_C_FLAGS="" -DCMAKE_EXE_LINKER_FLAGS=" -s STACK_OVERFLOW_CHECK=1 -s CHECK_NULL_WRITES=1 -sASSERTIONS=0" -DCMAKE_INSTALL_PREFIX=$(INSTALLDIR) ..; \
+		&& emcmake cmake -DCMAKE_BUILD_TYPE=Debug -DFT_DISABLE_ZLIB=TRUE -DFT_DISABLE_BZIP2=TRUE -DFT_DISABLE_PNG=TRUE -DFT_DISABLE_HARFBUZZ=TRUE -DFT_DISABLE_BROTLI=TRUE -DCMAKE_C_FLAGS="" -DCMAKE_EXE_LINKER_FLAGS="-sASSERTIONS=0 -flto=thin" -DCMAKE_INSTALL_PREFIX=$(INSTALLDIR) ..; \
 	make -j2 && make -j2 install
 
 
@@ -70,7 +70,8 @@ $(INSTALLDIR)/lib/libfreetyped.a: $(FTSRCDIR)| $(INSTALLDIR) $(FTSRCDIR)/Makefil
 $(INSTALLDIR)/lib/libz.a: | $(ZLIBSRCDIR)/CMakeLists.txt $(INSTALLDIR)
 	mkdir -p $(ZLIBSRCDIR)/build \
 		&& cd $(ZLIBSRCDIR)/build; \
-	emcmake cmake -DCMAKE_BUILD_TYPE=Release -DZLIB_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=$(INSTALLDIR) .. -DCMAKE_TOOLCHAIN_FILE=~/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake ; \
+		emcmake cmake -DCMAKE_BUILD_TYPE=Release -DZLIB_BUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=$(INSTALLDIR) .. -DCMAKE_EXE_LINKER_FLAGS="-flto=thin -sASSERTIONS=0"; \
+
 	make -j2 && make -j2 install
 
 $(INSTALLDIR):
