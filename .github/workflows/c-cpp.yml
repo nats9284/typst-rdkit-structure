@@ -6,14 +6,27 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  EM_VERSION: 5.0.1
+  EM_CACHE_FOLDER: 'emsdk-cache'
+
 jobs:
-  build:
-
+ 
+  test:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: make
-      run: make release_wasm
-      
-
+      - uses: actions/checkout@v6
+      - name: Setup cache
+        id: cache-system-libraries
+        uses: actions/cache@v5
+        with:
+          path: ${{env.EM_CACHE_FOLDER}}
+          key: ${{env.EM_VERSION}}-${{ runner.os }}
+      - uses: emscripten-core/setup-emsdk@v15
+        with:
+          version: ${{env.EM_VERSION}}
+          actions-cache-folder: ${{env.EM_CACHE_FOLDER}}
+      - name: Build library
+        run: make -j2 release_wasm
+      - name: Run unit tests
+        run: make check
