@@ -1,7 +1,9 @@
 # rdkit-structure
 
 A simple RDKit binding for Typst using the WebAssembly plugin system.
-You can draw a chemical structure easily by Writing SMILES string or importing smi or sdf file.
+You can draw a chemical structure easily by Writing SMILES string or importing .smi, .sdf and .mol file.
+Also, you can export INCHI and INCHI keys from smiles string easily.
+
 
 
 ## Acknowledgements
@@ -14,7 +16,7 @@ This project includes portions of a Makefile copied and modified from [diagraph]
 
 ### Basic usage
 
-This plugin is quite simple to use, you just need to import it:
+Importing the module:
 
 ```typ
 #import "@preview/rdkit-structure:0.1.0": *
@@ -91,7 +93,7 @@ The input option and drawing option is same as RDKit-cffi function arguments.
 Original cffi api usage (https://github.com/rdkit/rdkit/blob/master/Code/MinimalLib/cffi_test.c) might help you.
 
 #### Drawing reaction schemes
-You can draw Reaction SMILES (RXNSMILES) using the `render_reaction` function:
+You can draw Reaction SMILES (RXNSMILES) and Reaction SDF using the `render_reaction` function:
 
 
 ```
@@ -136,11 +138,12 @@ So you should use Cmake whose version is or less than 3.29.
 
 - [Emscripten](https://github.com/emscripten-core/emscripten)
 
-
 This project was built with Emscripten `5.0.7`.
-```bash
 Before building, you just need to set PATH environmental variable
+
+```bash
 source <path-to-emsdk>/emsdk_env.sh
+```
 
 - Wasi stub
 
@@ -154,6 +157,9 @@ There are also some other make commands:
 
 - `make clean`: Clean the build folder and the link
 - `make test`: Generate the test pdf
+- `make debug`: Build in debug mode
+
+A part of the Makefile is copied and modified from [diagraph] (https://github.com/Robotechnic/diagraph), which is licensed under the MIT License.
 
 ##Contributing
 Feel free to asking usage/technical questions or submit issues.

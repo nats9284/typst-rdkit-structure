@@ -16,3 +16,31 @@
 #let fullerenes=read("../examples/fullerenes.sdf")
 #draw_molecule(fullerenes)
 
+#let rxnsdf="$RXN\n\
+\n\
+      RDKit\n\
+\n\
+  1  1\n\
+$MOL\n\
+\n\
+     RDKit          2D\n\
+\n\
+  2  1  0  0  0  0  0  0  0  0999 V2000\n\
+    0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  1  0  0\n\
+    1.2990    0.7500    0.0000 O   0  0  0  0  0  0  0  0  0  2  0  0\n\
+  1  2  6  0\n\
+V    1 [C&H3:1]\n\
+V    2 [O&H1:2]\n\
+M  END\n\
+$MOL\n\
+\n\
+     RDKit          2D\n\
+\n\
+  2  1  0  0  0  0  0  0  0  0999 V2000\n\
+    0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  1  0  0\n\
+    1.2990    0.7500    0.0000 O   0  0  0  0  0  0  0  0  0  2  0  0\n\
+  1  2  2  0\n\
+V    1 [C&H2:1]\n\
+V    2 [O&H0:2]\n\
+M  END"
+
