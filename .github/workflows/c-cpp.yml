@@ -1,8 +1,6 @@
 name: C/C++ CI
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -28,5 +26,11 @@ jobs:
           actions-cache-folder: ${{env.EM_CACHE_FOLDER}}
       - name: Build library
         run: make -j2 release_wasm
-      - name: Run unit tests
-        run: make check
+      - name: check
+        run: make test
+      - name: moving file
+        run: mv /home/runner/work/typst-rdkit-structure/typst-rdkit-structure/rdkit_interface/artifacts/rdkit_structure.wasm /tmp/rdkit_structure.wasm
+      - uses: actions/upload-artifact@v7
+        with:
+          path: /tmp/rdkit_structure.wasm
+          archive: false
