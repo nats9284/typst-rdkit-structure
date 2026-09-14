@@ -166,7 +166,7 @@ int32_t exportInchi(size_t molStringLen, size_t molOptLen, size_t inchiOptLen) {
         free(pkl);
         return 1;
     }
-    char *inchi = get_inchi(pkl, pklSize, (char *)inchiOpt);
+    char *inchi = get_inchi(pkl, &pklSize, (char *)inchiOpt);
     if (!inchi) {
         free(pkl);
         ERROR("failed to get inchi");
@@ -196,7 +196,7 @@ int32_t exportInchiKey(size_t inchiStringLen) {
     unsigned char inchiString[inchiStringLen+1];
     memcpy(inchiString, args, inchiStringLen);
     inchiString[inchiStringLen] = '\0';
-    char *inchiKey =get_inchi_key_for_inchi((char *)inchiString);
+    char *inchiKey =get_inchikey_for_inchi((char *)inchiString);
     if (!inchiKey) {
         ERROR("failed to get inchi key");
         return 1;
