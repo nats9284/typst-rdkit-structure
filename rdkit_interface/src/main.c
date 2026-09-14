@@ -156,7 +156,7 @@ int32_t exportInchi(size_t molStringLen, size_t molOptLen, size_t inchiOptLen) {
     memcpy(inchiOpt, args+molStringLen+molOptLen, inchiOptLen);
     inchiOpt[inchiOptLen] = '\0';
     size_t pklSize;
-    char *pkl;
+    char *pkl = NULL;
     pkl = get_mol((char *)molString, &pklSize, (char *)molOpt );
     if (!pkl) {
         ERROR("failed to parse string");
@@ -166,7 +166,8 @@ int32_t exportInchi(size_t molStringLen, size_t molOptLen, size_t inchiOptLen) {
         free(pkl);
         return 1;
     }
-    char *inchi = get_inchi(pkl, &pklSize, (char *)inchiOpt);
+    char *inchi = NULL;
+    inchi = get_inchi(pkl, pklSize, (char *)inchiOpt);
     if (!inchi) {
         free(pkl);
         ERROR("failed to get inchi");
@@ -196,7 +197,8 @@ int32_t exportInchiKey(size_t inchiStringLen) {
     unsigned char inchiString[inchiStringLen+1];
     memcpy(inchiString, args, inchiStringLen);
     inchiString[inchiStringLen] = '\0';
-    char *inchiKey =get_inchikey_for_inchi((char *)inchiString);
+    char *inchiKey = NULL;
+    inchiKey = get_inchikey_for_inchi((char *)inchiString);
     if (!inchiKey) {
         ERROR("failed to get inchi key");
         return 1;
@@ -214,7 +216,7 @@ int32_t exportInchiKey(size_t inchiStringLen) {
 
 EMSCRIPTEN_KEEPALIVE
 int32_t get_version(){
-    unsigned char version[6]="0.1.0";
+    unsigned char version[6]="0.2.0";
     size_t versionLen=strlen((char *)version);
     wasm_minimal_protocol_send_result_to_host((uint8_t *)version, versionLen);
     return 0;
