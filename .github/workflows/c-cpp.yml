@@ -1,0 +1,37 @@
+name: C/C++ CI
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  EM_VERSION: 5.0.1
+  EM_CACHE_FOLDER: 'emsdk-cache'
+
+jobs:
+ 
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup cache
+        id: cache-system-libraries
+        uses: actions/cache@v5
+        with:
+          path: ${{env.EM_CACHE_FOLDER}}
+          key: ${{env.EM_VERSION}}-${{ runner.os }}
+      - uses: emscripten-core/setup-emsdk@v15
+        with:
+          version: ${{env.EM_VERSION}}
+          actions-cache-folder: ${{env.EM_CACHE_FOLDER}}
+      - name: Build library
+        run: make -j2 release_wasm
+      - name: check
+        run: make test
+      - name: moving file
+        run: mv /home/runner/work/typst-rdkit-structure/typst-rdkit-structure/rdkit_interface/artifacts/rdkit_structure.wasm /tmp/pkg
+             mv /home/runner/work/typst-rdkit-structure/typst-rdkit-structure/pkg /tmp/
+      - uses: actions/upload-artifact@v7
+        with:
+          path: /tmp/pkg
+          archive: true
