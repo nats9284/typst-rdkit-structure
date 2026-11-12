@@ -19,7 +19,15 @@ Importing the module:
 
 You can draw molecules using the `render_molecule` function:
 
-[typed-smiles](https://github.com/GeronimoCastano/typed-smiles), and [molchemist](https://github.com/rice8y/molchemist) are faster and efficient for only converting SMILES/MOL/SDF to svg, so if you want to use it, please do!
+[typed-smiles](https://github.com/GeronimoCastano/typed-smiles), and [molchemist](https://github.com/rice8y/molchemist) are faster and efficient for only converting SMILES/MOL/SDF to svg, so I recommend using them.
+I usually use molchemist and typed-smiles, and I use this plugin only when some of the valid SMILES are not accepted in those plugins.
+
+
+List of similar plugins
+- [molchemist](https://typst.app/universe/package/molchemist)
+- [typed-smiles](https://typst.app/universe/package/typed-smiles)
+- [michem](https://typst.app/universe/package/michem)
+- [xyzrender-rustyp](https://typst.app/universe/package/xyzrender-rustyp)
 
 This plugin supports Molblock, SDF, SMILES (including OpenSMILES chirality classes), reaction SMILES/SMARTS as an input format.
 
