@@ -171,9 +171,8 @@ PRs are absolutely welcome.
 
 
 ## Acknowledgements
-This plugin uses [RDKit](https://github.com/rdkit/rdkit) internally.
 This project would not have been possible without the valuable work of the RDKit community.
-This project includes portions of a Makefile copied and modified from [diagraph] (https://github.com/Robotechnic/diagraph), which is licensed under the MIT License. The original copyright notice has been preserved.
+This project includes portions of a Makefile copied and modified from [diagraph](https://github.com/Robotechnic/diagraph), which is licensed under the MIT License. The original copyright notice has been preserved.
 
 ## License
 

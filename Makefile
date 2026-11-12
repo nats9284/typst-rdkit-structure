@@ -31,13 +31,3 @@ pkg :
 	cp ./README.md ./pkg/README.md
 	cp ./typst.toml ./pkg/typst.toml
 	cp ./LICENSE ./pkg/LICENSE
-
-wasi-stub :
-	git clone https://github.com/typst-community/wasm-minimal-protocol.git
-	cd wasm-minimal-protocol; \
-	git checkout wasi-stub-0.3.0; \
-	cd crates/wasi-stub ; \
-	cargo build --release 
-
-test: wasm
-	typst compile --root . ./tests/test.typ
