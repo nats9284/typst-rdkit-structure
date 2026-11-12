@@ -27,7 +27,7 @@ jobs:
       - name: Build library
         run: make -j2 release_wasm
       - name: check
-        run: make test
+        run: bash test.sh
       - name: moving file
         run: mv /home/runner/work/typst-rdkit-structure/typst-rdkit-structure/rdkit_interface/artifacts/rdkit_structure.wasm /tmp/pkg
              mv /home/runner/work/typst-rdkit-structure/typst-rdkit-structure/pkg /tmp/
