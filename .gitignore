@@ -1,0 +1,5 @@
+rdkit_interface/install
+rdkit_interface/rdkit
+rdkit_interface/zlib
+rdkit_interface/boost
+tests/test.pdf
