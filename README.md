@@ -163,22 +163,11 @@ There are also some other make commands:
 Feel free to asking usage/technical questions or submit issues.
 PRs are absolutely welcome.
 
-## Features that may be added in the future:
-
-- Changing elements symbol to arbitrary symbols
-  For example: represents halogenized benzene by substituting symbol an element Cl of c1ccccc1[Cl]  (chlorobenzene) into X.
-               represents tertiary amin by substituting on elements C of "C(C)N(C)" (trimethyl amin) into  R_1, R_2, R_3.
-
-
 ## Acknowledgements
 This project would not have been possible without the valuable work of the RDKit community.
 This project includes portions of a Makefile copied and modified from [diagraph](https://github.com/Robotechnic/diagraph), which is licensed under the MIT License. The original copyright notice has been preserved.
 
 ## License
-
-
-Portions of this Makefile are copied and modified from [Robotechnic/diagraph/Makefile](https://github.com/Robotechnic/diagraph/tree/main/Makefile)].
-
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Log
