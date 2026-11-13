@@ -1,5 +1,5 @@
 #include "emscripten.h"
-
+#define RDK_BUILD_INCHI_SUPPORT
 #include <cffiwrapper.h>
 #ifdef __cplusplus
 #include <cstddef>
@@ -205,12 +205,8 @@ int32_t export_inchikey(size_t inchiStringLen) {
     }
 
     size_t inchiKeyLen=strlen(inchiKey);
-
-
     wasm_minimal_protocol_send_result_to_host((uint8_t *)inchiKey, inchiKeyLen);
-
-    free(pkl);
-    free(inchi);
+    free(inchiKey);
     return 0;
 }
 
